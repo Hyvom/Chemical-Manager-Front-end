@@ -1,5 +1,5 @@
-import { ApplicationConfig } from '@angular/core';
 import { provideRouter, Routes } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
 import { LoginComponent } from './auth/login/login.component';
 
 export const routes: Routes = [
@@ -8,6 +8,9 @@ export const routes: Routes = [
   // Add other routes/modules here later
 ];
 
-export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes)]
+export const appConfig = {
+  providers: [
+    provideHttpClient(),
+    provideRouter(routes)
+  ]
 };
