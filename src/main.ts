@@ -6,9 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(
-      HttpClientModule,
-      ReactiveFormsModule
-    )
+    importProvidersFrom(HttpClientModule, ReactiveFormsModule)
   ]
 });
