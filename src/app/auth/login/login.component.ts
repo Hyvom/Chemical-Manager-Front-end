@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/auth.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { AuthService } from '../../core/auth.service';
   standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
   error: string | null = null;

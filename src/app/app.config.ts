@@ -5,7 +5,7 @@ import { LoginComponent } from './auth/login/login.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  // Add other routes here later
+  // Add other routes/modules here later
 ];
 
 export const appConfig: ApplicationConfig = {
