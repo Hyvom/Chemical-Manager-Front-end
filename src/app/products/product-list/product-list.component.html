@@ -1,1 +1,56 @@
-<p>product-list works!</p>
+<div class="product-container">
+  <div class="header">
+    <h1>Chemical Products Management</h1>
+    <div class="header-actions">
+      <span class="user-info">Welcome, {{ isAdmin ? 'Admin' : 'User' }}</span>
+      <button class="btn-logout" (click)="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="searchKeyword"
+        (input)="searchProducts()"
+        placeholder="Search by name, formula, or category..."
+      />
+      <button class="btn-search" (click)="searchProducts()">Search</button>
+    </div>
+    <button *ngIf="isAdmin" class="btn-add" (click)="addProduct()">
+      + Add New Product
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading products...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div class="products-grid" *ngIf="!loading && !error">
+    <div class="product-card" *ngFor="let product of filteredProducts">
+      <div class="product-header">
+        <h3>{{ product.nom }}</h3>
+        <span class="product-category">{{ product.categorie }}</span>
+      </div>
+
+      <div class="product-details">
+        <p><strong>Formula:</strong> {{ product.formule }}</p>
+        <p><strong>Quantity:</strong> {{ product.quantite }}</p>
+        <p><strong>Expiry Date:</strong> {{ product.datePeremption | date:'dd/MM/yyyy' }}</p>
+        <p><strong>State:</strong> {{ product.etat }}</p>
+        <p><strong>Unit Price:</strong> {{ product.prixUnitaire }} TND</p>
+        <p><strong>Supplier:</strong> {{ product.fournisseur }}</p>
+        <p *ngIf="product.remarques"><strong>Remarks:</strong> {{ product.remarques }}</p>
+      </div>
+
+      <div class="product-actions">
+        <button class="btn-view" (click)="viewProduct(product.id!)">View</button>
+        <button *ngIf="isAdmin" class="btn-edit" (click)="editProduct(product.id!)">Edit</button>
+        <button *ngIf="isAdmin" class="btn-delete" (click)="deleteProduct(product.id!)">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && filteredProducts.length === 0" class="no-products">
+    <p>No products found.</p>
+  </div>
+</div>
