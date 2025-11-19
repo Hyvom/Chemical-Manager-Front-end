@@ -34,12 +34,14 @@
 
       <div class="product-details">
         <p><strong>Formula:</strong> {{ product.formule }}</p>
-        <p><strong>Quantity:</strong> {{ product.quantite }}</p>
-        <p><strong>Expiry Date:</strong> {{ product.datePeremption | date:'dd/MM/yyyy' }}</p>
-        <p><strong>State:</strong> {{ product.etat }}</p>
-        <p><strong>Unit Price:</strong> {{ product.prixUnitaire }} TND</p>
-        <p><strong>Supplier:</strong> {{ product.fournisseur }}</p>
-        <p *ngIf="product.remarques"><strong>Remarks:</strong> {{ product.remarques }}</p>
+        <p><strong>Quantity:</strong> {{ product.quantite }} {{ product.unite }}</p>
+        <p><strong>Expiry Date:</strong> {{ product.datePeremption ? (product.datePeremption | date:'dd/MM/yyyy') : 'N/A' }}</p>
+        <p><strong>Location:</strong> {{ product.localisation || 'N/A' }}</p>
+        <p><strong>Hazardous:</strong> {{ product.dangereux ? 'Yes' : 'No' }}</p>
+        <p *ngIf="product.etat"><strong>State:</strong> {{ product.etat }}</p>
+        <p *ngIf="product.prixUnitaire"><strong>Unit Price:</strong> {{ product.prixUnitaire | number:'1.2-2' }} TND</p>
+        <p *ngIf="product.fournisseur"><strong>Supplier:</strong> {{ product.fournisseur }}</p>
+        <p *ngIf="product.description" class="product-description"><strong>Description:</strong> {{ product.description }}</p>
       </div>
 
       <div class="product-actions">

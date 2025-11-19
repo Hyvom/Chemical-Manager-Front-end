@@ -4,6 +4,19 @@ import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 import { AuthService } from './auth.service';
 
+export interface Produit {
+  id?: number;
+  nom: string;
+  formule: string;
+  categorie: string;
+  quantite: number;
+  unite: string;
+  datePeremption?: string;
+  localisation?: string;
+  dangereux: boolean;
+  description?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })

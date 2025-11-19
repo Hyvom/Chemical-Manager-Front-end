@@ -2,11 +2,14 @@ export interface Product {
   id?: number;
   nom: string;
   formule: string;
-  quantite: number;
-  datePeremption: string;
   categorie: string;
-  etat: string;
-  prixUnitaire: number;
-  fournisseur: string;
-  remarques?: string;
+  quantite: number;
+  unite: string;
+  datePeremption?: string;
+  localisation?: string;
+  dangereux: boolean;
+  description?: string;
+  etat: string;           // Add this
+  prixUnitaire: number;   // Add this
+  fournisseur: string;    // Add this
 }

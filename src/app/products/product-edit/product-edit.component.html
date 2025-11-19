@@ -1,1 +1,186 @@
-<p>product-edit works!</p>
+<div class="product-edit-container">
+  <h2>{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+    <!-- Product Name -->
+    <div class="form-group">
+      <label for="nom">Product Name *</label>
+      <input
+        id="nom"
+        formControlName="nom"
+        type="text"
+        placeholder="e.g., Sodium Chloride"
+      />
+      <span class="error" *ngIf="productForm.get('nom')?.invalid && productForm.get('nom')?.touched">
+        Product name is required
+      </span>
+    </div>
+
+    <!-- Chemical Formula -->
+    <div class="form-group">
+      <label for="formule">Chemical Formula *</label>
+      <input
+        id="formule"
+        formControlName="formule"
+        type="text"
+        placeholder="e.g., NaCl"
+      />
+      <span class="error" *ngIf="productForm.get('formule')?.invalid && productForm.get('formule')?.touched">
+        Formula is required
+      </span>
+    </div>
+
+    <!-- Category -->
+    <div class="form-group">
+      <label for="categorie">Category *</label>
+      <select id="categorie" formControlName="categorie">
+        <option value="">Select Category</option>
+        <option value="Acid">Acid</option>
+        <option value="Base">Base</option>
+        <option value="Salt">Salt</option>
+        <option value="Solvent">Solvent</option>
+        <option value="Reagent">Reagent</option>
+        <option value="Other">Other</option>
+      </select>
+      <span class="error" *ngIf="productForm.get('categorie')?.invalid && productForm.get('categorie')?.touched">
+        Category is required
+      </span>
+    </div>
+
+    <!-- Quantity and Unit -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="quantite">Quantity *</label>
+        <input
+          id="quantite"
+          formControlName="quantite"
+          type="number"
+          min="0"
+          placeholder="0"
+        />
+        <span class="error" *ngIf="productForm.get('quantite')?.invalid && productForm.get('quantite')?.touched">
+          Valid quantity required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="unite">Unit *</label>
+        <select id="unite" formControlName="unite">
+          <option value="">Select Unit</option>
+          <option value="g">Grams (g)</option>
+          <option value="kg">Kilograms (kg)</option>
+          <option value="mL">Milliliters (mL)</option>
+          <option value="L">Liters (L)</option>
+          <option value="units">Units</option>
+        </select>
+        <span class="error" *ngIf="productForm.get('unite')?.invalid && productForm.get('unite')?.touched">
+          Unit is required
+        </span>
+      </div>
+    </div>
+
+    <!-- Expiration Date -->
+    <div class="form-group">
+      <label for="datePeremption">Expiration Date</label>
+      <input
+        id="datePeremption"
+        formControlName="datePeremption"
+        type="date"
+      />
+    </div>
+
+    <!-- Location -->
+    <div class="form-group">
+      <label for="localisation">Storage Location</label>
+      <input
+        id="localisation"
+        formControlName="localisation"
+        type="text"
+        placeholder="e.g., Shelf A3, Room 101"
+      />
+    </div>
+
+    <!-- Dangerous Checkbox -->
+    <div class="form-group checkbox-group">
+      <label>
+        <input
+          id="dangereux"
+          formControlName="dangereux"
+          type="checkbox"
+        />
+        Hazardous Material
+      </label>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label for="description">Description / Notes</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        rows="4"
+        placeholder="Additional information about the product..."
+      ></textarea>
+    </div>
+
+      <!-- Success/Error Messages -->
+      <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+      <div *ngIf="error" class="error-message">{{ error }}</div>
+      <!-- State/Status -->
+  <div class="form-group">
+    <label for="etat">State/Status *</label>
+    <select id="etat" formControlName="etat">
+      <option value="">Select State</option>
+      <option value="Available">Available</option>
+      <option value="Low Stock">Low Stock</option>
+      <option value="Out of Stock">Out of Stock</option>
+      <option value="Expired">Expired</option>
+    </select>
+    <span class="error" *ngIf="productForm.get('etat')?.invalid && productForm.get('etat')?.touched">
+      State is required
+    </span>
+  </div>
+
+  <!-- Unit Price -->
+  <div class="form-group">
+    <label for="prixUnitaire">Unit Price *</label>
+    <input
+      id="prixUnitaire"
+      formControlName="prixUnitaire"
+      type="number"
+      min="0"
+      step="0.01"
+      placeholder="0.00"
+    />
+    <span class="error" *ngIf="productForm.get('prixUnitaire')?.invalid && productForm.get('prixUnitaire')?.touched">
+      Unit price is required
+    </span>
+  </div>
+
+  <!-- Supplier -->
+  <div class="form-group">
+    <label for="fournisseur">Supplier *</label>
+    <input
+      id="fournisseur"
+      formControlName="fournisseur"
+      type="text"
+      placeholder="e.g., Sigma-Aldrich"
+    />
+    <span class="error" *ngIf="productForm.get('fournisseur')?.invalid && productForm.get('fournisseur')?.touched">
+      Supplier is required
+    </span>
+  </div>
+
+    <!-- Buttons -->
+    <div class="button-group">
+      <button type="submit" [disabled]="productForm.invalid" class="btn-primary">
+        {{ isEditMode ? 'Update Product' : 'Add Product' }}
+      </button>
+      <button type="button" (click)="onCancel()" class="btn-secondary">
+        Cancel
+      </button>
+    </div>
+
+  </form>
+</div>
