@@ -32,4 +32,10 @@ export class AuthService {
   getRole(): string | null {
     return localStorage.getItem('role');
   }
+
+  //Register
+   register(userData: any, role: string): Observable<any> {
+    const endpoint = role === 'admin' ? `${this.apiUrl}/register/admin` : `${this.apiUrl}/register/user`;
+    return this.http.post<any>(endpoint, userData);
+  }
 }
