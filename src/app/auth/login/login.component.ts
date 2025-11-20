@@ -31,7 +31,7 @@ export class LoginComponent {
       this.authService.login(credentials)
         .subscribe({
           next: () => {
-            window.location.href = '/products';
+            window.location.href = '/home';
           },
           error: err => {
             this.error = err.error?.message || 'Login failed';
