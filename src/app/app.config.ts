@@ -5,6 +5,10 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
+import { RequestEditComponent } from './requests/request-edit/request-edit.component';
+import { RequestListComponent } from './requests/request-list/request-list.component';
+import { RequestDetailComponent } from './requests/request-detail/request-detail.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,7 +19,10 @@ export const routes: Routes = [
   { path: 'products/edit/:id', component: ProductEditComponent },
   { path: 'products/add', component: ProductEditComponent },
   { path: 'products/add', component: ProductEditComponent },
-  { path: 'products/edit/:id', component: ProductEditComponent }
+  { path: 'products/edit/:id', component: ProductEditComponent },
+  { path: 'requests', component: RequestListComponent }, // You'll create this next
+  { path: 'requests/add', component: RequestEditComponent },
+  { path: 'requests/edit/:id', component: RequestEditComponent },
   // Add other routes/modules here later
 ];
 

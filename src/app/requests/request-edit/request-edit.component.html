@@ -1,0 +1,127 @@
+<div class="request-edit-container">
+  <h2>{{ isEditMode ? 'Edit Request' : 'Submit New Request' }}</h2>
+
+  <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+
+    <!-- Product Selection -->
+    <div class="form-group">
+      <label for="produitId">Select Product *</label>
+      <select
+        id="produitId"
+        formControlName="produitId"
+        (change)="onProductChange()"
+      >
+        <option value="">-- Select a Chemical Product --</option>
+        <option *ngFor="let product of products" [value]="product.id">
+          {{ product.nom }} ({{ product.formule }}) - Available: {{ product.quantite }} {{ product.unite }}
+        </option>
+      </select>
+      <span class="error" *ngIf="getFieldError('produitId')">
+        {{ getFieldError('produitId') }}
+      </span>
+    </div>
+
+    <!-- Product Details Card (shown after selection) -->
+    <div class="product-info-card" *ngIf="selectedProduct">
+      <h3>Product Details</h3>
+      <div class="product-info-grid">
+        <div class="info-item">
+          <strong>Name:</strong> {{ selectedProduct.nom }}
+        </div>
+        <div class="info-item">
+          <strong>Formula:</strong> {{ selectedProduct.formule }}
+        </div>
+        <div class="info-item">
+          <strong>Category:</strong> {{ selectedProduct.categorie }}
+        </div>
+        <div class="info-item">
+          <strong>Available:</strong> {{ selectedProduct.quantite }} {{ selectedProduct.unite }}
+        </div>
+        <div class="info-item" *ngIf="selectedProduct.localisation">
+          <strong>Location:</strong> {{ selectedProduct.localisation }}
+        </div>
+        <div class="info-item" *ngIf="selectedProduct.dangereux">
+          <strong class="hazard">⚠️ Hazardous Material</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quantity Requested -->
+    <div class="form-group">
+      <label for="quantiteDemandee">Quantity Requested *</label>
+      <input
+        id="quantiteDemandee"
+        formControlName="quantiteDemandee"
+        type="number"
+        min="1"
+        [max]="maxQuantity"
+        placeholder="Enter quantity"
+      />
+      <span class="hint" *ngIf="selectedProduct">
+        Maximum available: {{ maxQuantity }} {{ selectedProduct.unite }}
+      </span>
+      <span class="error" *ngIf="getFieldError('quantiteDemandee')">
+        {{ getFieldError('quantiteDemandee') }}
+      </span>
+    </div>
+
+    <!-- Date Range -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="dateDebut">Start Date *</label>
+        <input
+          id="dateDebut"
+          formControlName="dateDebut"
+          type="date"
+        />
+        <span class="error" *ngIf="getFieldError('dateDebut')">
+          {{ getFieldError('dateDebut') }}
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="dateFin">End Date *</label>
+        <input
+          id="dateFin"
+          formControlName="dateFin"
+          type="date"
+        />
+        <span class="error" *ngIf="getFieldError('dateFin')">
+          {{ getFieldError('dateFin') }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Purpose/Reason -->
+    <div class="form-group">
+      <label for="motif">Purpose / Reason *</label>
+      <textarea
+        id="motif"
+        formControlName="motif"
+        rows="5"
+        placeholder="Please describe why you need this chemical product and how it will be used (minimum 10 characters)..."
+      ></textarea>
+      <span class="hint">
+        Current: {{ requestForm.get('motif')?.value?.length || 0 }} characters (minimum 10 required)
+      </span>
+      <span class="error" *ngIf="getFieldError('motif')">
+        {{ getFieldError('motif') }}
+      </span>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+
+    <!-- Buttons -->
+    <div class="button-group">
+      <button type="submit" [disabled]="requestForm.invalid" class="btn-primary">
+        {{ isEditMode ? 'Update Request' : 'Submit Request' }}
+      </button>
+      <button type="button" (click)="onCancel()" class="btn-secondary">
+        Cancel
+      </button>
+    </div>
+
+  </form>
+</div>
