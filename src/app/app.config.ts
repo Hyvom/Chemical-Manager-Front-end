@@ -9,6 +9,7 @@ import { RequestListComponent } from './requests/request-list/request-list.compo
 import { RequestDetailComponent } from './requests/request-detail/request-detail.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './core/navbar/navbar.component';
 
 
 export const routes: Routes = [
@@ -25,7 +26,8 @@ export const routes: Routes = [
   { path: 'requests/add', component: RequestEditComponent },
   { path: 'requests/edit/:id', component: RequestEditComponent },
   { path: 'users', component:UserListComponent},
-  { path: 'home', component:HomeComponent}
+  { path: 'home', component:HomeComponent},
+  { path: 'nav-bar', component:NavbarComponent}
   // Add other routes/modules here later
 ];
 
