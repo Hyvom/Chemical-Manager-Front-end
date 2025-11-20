@@ -1,1 +1,30 @@
-<p>request-list works!</p>
+<div class="request-list">
+  <h2>Requests List</h2>
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <table *ngIf="!loading && requests.length > 0" class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Reason</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let req of requests">
+        <td>{{ req.id }}</td>
+        <td>{{ req.produitNom || req.produitId }}</td>
+        <td>{{ req.quantiteDemandee }}</td>
+        <td>{{ req.dateDebut }}</td>
+        <td>{{ req.dateFin }}</td>
+        <td>{{ req.motif }}</td>
+        <td>{{ req.statut || '-' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="!loading && requests.length === 0">No requests found.</div>
+</div>

@@ -15,6 +15,7 @@ export class RequestService {
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // Only add Authorization if token is present and non-empty
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }

@@ -1,57 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ProductService } from '../../core/product.service';
-import { Product } from '../../models/product.model';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Request } from '../../models/request.model';
+import { AuthService } from '../../core/auth.service';
 
-@Component({
-  selector: 'app-product-detail',
-  standalone: true,
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss'],
-  imports: [CommonModule, RouterLink]
+@Injectable({
+  providedIn: 'root'
 })
-export class ProductDetailComponent implements OnInit {
-  product: Product | null = null;
-  loading: boolean = false;
-  error: string | null = null;
+export class RequestService {
+  private apiUrl = 'http://localhost:8080/api/requests';
 
-  constructor(
-    private productService: ProductService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    if (id) {
-      this.loadProduct(Number(id));
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken();
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
+    return headers;
   }
 
-  loadProduct(id: number): void {
-    this.loading = true;
-    this.error = null;
-    this.productService.getProductById(id).subscribe({
-      next: (data) => {
-        this.product = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        this.error = 'Failed to load product details';
-        this.loading = false;
-        console.error('Error loading product:', err);
-      }
-    });
+  getAllRequests(): Observable<Request[]> {
+    return this.http.get<Request[]>(this.apiUrl, { headers: this.getHeaders() });
   }
 
-  goBack(): void {
-    this.router.navigate(['/products']);
+  getRequestById(id: number): Observable<Request> {
+    return this.http.get<Request>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
   }
 
-  editProduct(): void {
-    if (this.product?.id) {
-      this.router.navigate(['/products/edit', this.product.id]);
-    }
+  createRequest(request: Request): Observable<Request> {
+    return this.http.post<Request>(this.apiUrl, request, { headers: this.getHeaders() });
+  }
+
+  updateRequest(id: number, request: Request): Observable<Request> {
+    return this.http.put<Request>(`${this.apiUrl}/${id}`, request, { headers: this.getHeaders() });
+  }
+
+  deleteRequest(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  approveRequest(id: number, remarques?: string): Observable<Request> {
+    return this.http.put<Request>(`${this.apiUrl}/${id}/approve`, { remarques }, { headers: this.getHeaders() });
+  }
+
+  rejectRequest(id: number, remarques?: string): Observable<Request> {
+    return this.http.put<Request>(`${this.apiUrl}/${id}/reject`, { remarques }, { headers: this.getHeaders() });
   }
 }
