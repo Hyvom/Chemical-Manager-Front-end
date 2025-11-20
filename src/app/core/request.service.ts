@@ -14,10 +14,11 @@ export class RequestService {
 
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    return headers;
   }
 
   getAllRequests(): Observable<Request[]> {
