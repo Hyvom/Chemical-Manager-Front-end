@@ -7,6 +7,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { RequestEditComponent } from './requests/request-edit/request-edit.component';
 import { RequestListComponent } from './requests/request-list/request-list.component';
 import { RequestDetailComponent } from './requests/request-detail/request-detail.component';
+import { UserListComponent } from './users/user-list/user-list.component';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'requests', component: RequestListComponent }, // You'll create this next
   { path: 'requests/add', component: RequestEditComponent },
   { path: 'requests/edit/:id', component: RequestEditComponent },
+  { path: 'users', component:UserListComponent}
   // Add other routes/modules here later
 ];
 
