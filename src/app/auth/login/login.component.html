@@ -1,19 +1,125 @@
 <div class="login-container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h2>Login</h2>
-    <div>
-      <label for="username">Username</label>
-      <input id="username" formControlName="username" type="text" />
-    </div>
-    <div>
-      <label for="password">Password</label>
-      <input id="password" formControlName="password" type="password" />
-    </div>
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
-    <div *ngIf="error" class="error">{{error}}</div>
-  </form>
-  <div class="register-link">
-    <p>Don't have an account? <a routerLink="/register">Register here</a></p>
-  </div>
 
+    <div class="form-group">
+      <label for="username">Username *</label>
+      <input
+        id="username"
+        formControlName="username"
+        type="text"
+        placeholder="Enter username"
+      />
+      <div
+        *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+        class="error-message"
+      >
+        Username is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password *</label>
+      <input
+        id="password"
+        formControlName="password"
+        type="password"
+        placeholder="Enter password"
+      />
+      <div
+        *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        class="error-message"
+      >
+        Password is required
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="register-link">
+      <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+    </div>
+  </form>
+
+  <div class="slideshow-section">
+    <div class="slideshow-container">
+      <div class="slide" [class.active]="currentSlide === 0">
+        <div class="slide-content">
+          <h3>Welcome Back</h3>
+          <p>Access Your Chemical Management Dashboard</p>
+        </div>
+        <div class="atom-overlay">
+          <div class="atom-nucleus"></div>
+          <div class="electron-orbit orbit-1">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-2">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-3">
+            <div class="electron"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" [class.active]="currentSlide === 1">
+        <div class="slide-content">
+          <h3>Secure Access</h3>
+          <p>Protected Laboratory Information System</p>
+        </div>
+        <div class="atom-overlay">
+          <div class="atom-nucleus"></div>
+          <div class="electron-orbit orbit-1">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-2">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-3">
+            <div class="electron"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" [class.active]="currentSlide === 2">
+        <div class="slide-content">
+          <h3>Real-Time Monitoring</h3>
+          <p>Track Your Chemical Inventory & Requests</p>
+        </div>
+        <div class="atom-overlay">
+          <div class="atom-nucleus"></div>
+          <div class="electron-orbit orbit-1">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-2">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-3">
+            <div class="electron"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" [class.active]="currentSlide === 3">
+        <div class="slide-content">
+          <h3>CNSTN Platform</h3>
+          <p>Advanced Nuclear Science Management</p>
+        </div>
+        <div class="atom-overlay">
+          <div class="atom-nucleus"></div>
+          <div class="electron-orbit orbit-1">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-2">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-3">
+            <div class="electron"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
