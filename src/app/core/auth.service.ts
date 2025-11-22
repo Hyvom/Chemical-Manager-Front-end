@@ -6,11 +6,10 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8080/api/auth'; // Changed to baseUrl
+  private baseUrl = 'http://localhost:8080/api/auth';
 
   constructor(private http: HttpClient) {}
 
-  // Login method
   login(credentials: { username: string; password: string }): Observable<{ token: string; role: string }> {
     return this.http.post<{ token: string; role: string }>(`${this.baseUrl}/login`, credentials)
       .pipe(
@@ -21,7 +20,6 @@ export class AuthService {
       );
   }
 
-  // Register method
   register(userData: any, role: string): Observable<any> {
     const endpoint = role === 'admin'
       ? `${this.baseUrl}/register/admin`
@@ -40,5 +38,21 @@ export class AuthService {
 
   getRole(): string | null {
     return localStorage.getItem('role');
+  }
+
+  // Add this method to properly check if user is admin
+  isAdmin(): boolean {
+    const role = this.getRole();
+    if (!role) return false;
+
+    // Check for common admin role formats
+    const roleLower = role.toLowerCase();
+    return roleLower === 'admin' ||
+           roleLower === 'role_admin' ||
+           roleLower.includes('admin');
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 }

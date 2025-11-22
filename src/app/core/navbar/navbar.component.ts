@@ -24,8 +24,15 @@ export class NavbarComponent implements OnInit {
   }
 
   checkAuthStatus() {
-    this.isAuthenticated = !!this.authService.getToken();
-    this.isAdmin = this.authService.getRole() === 'admin';
+    this.isAuthenticated = this.authService.isAuthenticated();
+    this.isAdmin = this.authService.isAdmin(); // Use the new isAdmin() method
+
+    // Debug: log to console to see what's happening
+    console.log('Auth Status:', {
+      isAuthenticated: this.isAuthenticated,
+      isAdmin: this.isAdmin,
+      role: this.authService.getRole()
+    });
   }
 
   logout() {

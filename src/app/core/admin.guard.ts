@@ -6,12 +6,10 @@ export const adminGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  const role = authService.getRole();
-
-  if (role === 'admin') {
+  if (authService.isAdmin()) {
     return true;
   } else {
-    // Non-admin users get redirected to home
+    console.log('Access denied - not admin. Role:', authService.getRole());
     router.navigate(['/home']);
     return false;
   }
