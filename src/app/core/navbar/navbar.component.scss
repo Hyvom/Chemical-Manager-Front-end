@@ -1,0 +1,315 @@
+/* navbar.component.css / navbar.component.scss */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  height: 70px;
+  background: rgba(10, 22, 40, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 255, 255, 0.1);
+  animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animated particles effect */
+.navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(1px 1px at 20% 50%, rgba(0, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 60% 30%, rgba(0, 255, 157, 0.3), transparent),
+    radial-gradient(1px 1px at 80% 70%, rgba(255, 255, 255, 0.2), transparent);
+  background-size: 300% 300%;
+  background-position: 0% 0%;
+  animation: particleShift 15s ease-in-out infinite;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+@keyframes particleShift {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+
+.navbar-brand {
+  position: relative;
+  z-index: 2;
+}
+
+.navbar-brand .brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00ffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  animation: brandGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes brandGlow {
+  from {
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  }
+  to {
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 40px rgba(0, 255, 255, 0.5);
+  }
+}
+
+.navbar-brand .brand::before {
+  content: '⚛';
+  margin-right: 10px;
+  font-size: 1.8rem;
+  display: inline-block;
+  animation: rotate 8s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.navbar-brand .brand::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00ffff, #00ff9d);
+  transition: width 0.4s ease;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.navbar-brand .brand:hover::after {
+  width: 100%;
+}
+
+.navbar-brand .brand:hover {
+  color: #00ff9d;
+  text-shadow: 0 0 30px rgba(0, 255, 255, 0.9), 0 0 50px rgba(0, 255, 157, 0.6);
+  transform: translateY(-2px);
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.navbar-links li {
+  animation: fadeInNav 0.6s ease-out backwards;
+}
+
+.navbar-links li:nth-child(1) { animation-delay: 0.1s; }
+.navbar-links li:nth-child(2) { animation-delay: 0.2s; }
+.navbar-links li:nth-child(3) { animation-delay: 0.3s; }
+.navbar-links li:nth-child(4) { animation-delay: 0.4s; }
+.navbar-links li:nth-child(5) { animation-delay: 0.5s; }
+.navbar-links li:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInNav {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-links a {
+  display: block;
+  padding: 10px 20px;
+  color: #a0e7ff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Animated background on hover */
+.navbar-links a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.navbar-links a:hover::before {
+  left: 100%;
+}
+
+.navbar-links a:hover {
+  color: #00ffff;
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Active link styling */
+.navbar-links a.active {
+  color: #00ffff;
+  background: rgba(0, 255, 255, 0.15);
+  border: 1px solid rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), inset 0 0 15px rgba(0, 255, 255, 0.1);
+  position: relative;
+}
+
+.navbar-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffff, transparent);
+  box-shadow: 0 0 10px #00ffff;
+  animation: activePulse 2s ease-in-out infinite;
+}
+
+@keyframes activePulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Logout button special styling */
+.navbar-links a[style*="cursor: pointer"] {
+  background: rgba(255, 77, 106, 0.1);
+  border: 1px solid rgba(255, 77, 106, 0.3);
+  color: #ff9db0;
+}
+
+.navbar-links a[style*="cursor: pointer"]:hover {
+  background: rgba(255, 77, 106, 0.2);
+  border-color: rgba(255, 77, 106, 0.5);
+  color: #ff6b87;
+  box-shadow: 0 0 20px rgba(255, 77, 106, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 0 30px;
+  }
+
+  .navbar-brand .brand {
+    font-size: 1.3rem;
+  }
+
+  .navbar-links {
+    gap: 8px;
+  }
+
+  .navbar-links a {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+
+  .navbar-brand .brand {
+    font-size: 1.2rem;
+  }
+
+  .navbar-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .navbar-links a {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 15px;
+  }
+
+  .navbar-brand .brand {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .navbar-brand .brand::before {
+    font-size: 1.3rem;
+    margin-right: 5px;
+  }
+
+  .navbar-links {
+    width: 100%;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .navbar-links a {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+/* Smooth scroll behavior for the page */
+:root {
+  scroll-behavior: smooth;
+}
+
+/* Prevent layout shift when navbar becomes sticky */
+body {
+  padding-top: 0;
+}
+
+/* Optional: Add a subtle shadow when scrolling */
+.navbar.scrolled {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7), 0 0 50px rgba(0, 255, 255, 0.2);
+  border-bottom-color: rgba(0, 255, 255, 0.5);
+}
