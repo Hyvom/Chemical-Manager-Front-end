@@ -1,0 +1,48 @@
+// Re-use common variables if present (adapt to match yours)
+$primary: #232f3e; // example color, replace with your actual navbar color
+$text-light: #fafafa; // example light text color
+$padding-base: 1rem;
+$font-family: 'Roboto', Arial, sans-serif;
+$nav-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+.footer {
+  background: $primary;
+  color: $text-light;
+  font-family: $font-family;
+  padding: $padding-base 0;
+  box-shadow: $nav-shadow;
+  border-top: 1px solid lighten($primary, 10%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+
+  .footer-content {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    nav {
+      margin-top: 0.25rem;
+      a {
+        color: $text-light;
+        text-decoration: none;
+        margin: 0 0.5rem;
+        font-size: 0.95rem;
+        transition: color 0.2s;
+        &:hover {
+          color: lighten($text-light, 20%);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

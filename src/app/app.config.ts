@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { authGuard } from './core/auth.guard';
 import { adminGuard } from './core/admin.guard';
+import { FooterComponent } from './core/footer/footer.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -32,6 +33,7 @@ export const routes: Routes = [
   { path: 'requests', component: RequestListComponent, canActivate: [authGuard] },
   { path: 'requests/add', component: RequestEditComponent, canActivate: [authGuard] },
   { path: 'requests/edit/:id', component: RequestEditComponent, canActivate: [authGuard] },
+  { path: 'footer', component: FooterComponent},
 
   { path: 'users', component: UserListComponent, canActivate: [authGuard, adminGuard] }];
 
