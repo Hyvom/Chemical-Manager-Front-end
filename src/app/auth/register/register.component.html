@@ -97,4 +97,83 @@
       <p>Already have an account? <a (click)="goToLogin()">Login here</a></p>
     </div>
   </form>
+  <div class="slideshow-section">
+    <div class="slideshow-container">
+      <div class="slide" [class.active]="currentSlide === 0">
+        <div class="slide-content">
+          <h3>CNSTN</h3>
+          <p>Centre National des Sciences et Technologies Nucléaires</p>
+        </div>
+        <div class="atom-overlay">
+          <div class="atom-nucleus"></div>
+          <div class="electron-orbit orbit-1">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-2">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-3">
+            <div class="electron"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" [class.active]="currentSlide === 1">
+        <div class="slide-content">
+          <h3>Chemical Management</h3>
+          <p>Advanced Laboratory Information Management System</p>
+        </div>
+        <div class="atom-overlay">
+          <div class="atom-nucleus"></div>
+          <div class="electron-orbit orbit-1">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-2">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-3">
+            <div class="electron"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" [class.active]="currentSlide === 2">
+        <div class="slide-content">
+          <h3>Safety First</h3>
+          <p>Comprehensive Safety & Compliance Tracking</p>
+        </div>
+        <div class="atom-overlay">
+          <div class="atom-nucleus"></div>
+          <div class="electron-orbit orbit-1">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-2">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-3">
+            <div class="electron"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" [class.active]="currentSlide === 3">
+        <div class="slide-content">
+          <h3>Inventory Control</h3>
+          <p>Real-time Chemical Inventory & Asset Management</p>
+        </div>
+        <div class="atom-overlay">
+          <div class="atom-nucleus"></div>
+          <div class="electron-orbit orbit-1">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-2">
+            <div class="electron"></div>
+          </div>
+          <div class="electron-orbit orbit-3">
+            <div class="electron"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+// register.component.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -11,10 +12,12 @@ import { AuthService } from '../../core/auth.service';
   styleUrls: ['./register.component.scss'],
   imports: [CommonModule, ReactiveFormsModule]
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
   error: string | null = null;
   success: string | null = null;
   registerForm;
+  currentSlide: number = 0;
+  private slideInterval: any;
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +33,25 @@ export class RegisterComponent {
       tel: ['', Validators.required],
       role: ['user', Validators.required] // default to 'user', can be changed to 'admin'
     });
+  }
+
+  ngOnInit(): void {
+    // Start the automatic slideshow
+    this.startSlideshow();
+  }
+
+  ngOnDestroy(): void {
+    // Clear interval when component is destroyed
+    if (this.slideInterval) {
+      clearInterval(this.slideInterval);
+    }
+  }
+
+  startSlideshow(): void {
+    // Change slide every 5 seconds
+    this.slideInterval = setInterval(() => {
+      this.currentSlide = (this.currentSlide + 1) % 4; // 4 slides total
+    }, 5000);
   }
 
   onSubmit() {
@@ -62,7 +84,7 @@ export class RegisterComponent {
       });
   }
   }
-  
+
   goToLogin() {
     this.router.navigate(['/login']);
   }
