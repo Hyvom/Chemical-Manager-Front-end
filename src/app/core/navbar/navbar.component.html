@@ -3,11 +3,33 @@
     <a routerLink="/home" class="brand">CNSTN Chemical Manager</a>
   </div>
   <ul class="navbar-links">
-    <li><a routerLink="/home" routerLinkActive="active">Accueil</a></li>
-    <li><a routerLink="/products" routerLinkActive="active">Produits</a></li>
-    <li><a routerLink="/requests" routerLinkActive="active">Demandes</a></li>
-    <li><a routerLink="/users" routerLinkActive="active">Utilisateurs</a></li>
-    <li><a routerLink="/login" routerLinkActive="active">Connexion</a></li>
-    <li><a routerLink="/register" routerLinkActive="active">Inscription</a></li>
+    <!-- Links visible only when authenticated -->
+    <li *ngIf="isAuthenticated">
+      <a routerLink="/home" routerLinkActive="active">Accueil</a>
+    </li>
+    <li *ngIf="isAuthenticated">
+      <a routerLink="/products" routerLinkActive="active">Produits</a>
+    </li>
+    <li *ngIf="isAuthenticated">
+      <a routerLink="/requests" routerLinkActive="active">Demandes</a>
+    </li>
+
+    <!-- Admin-only link -->
+    <li *ngIf="isAuthenticated && isAdmin">
+      <a routerLink="/users" routerLinkActive="active">Utilisateurs</a>
+    </li>
+
+    <!-- Show login/register only when NOT authenticated -->
+    <li *ngIf="!isAuthenticated">
+      <a routerLink="/login" routerLinkActive="active">Connexion</a>
+    </li>
+    <li *ngIf="!isAuthenticated">
+      <a routerLink="/register" routerLinkActive="active">Inscription</a>
+    </li>
+
+    <!-- Show logout only when authenticated -->
+    <li *ngIf="isAuthenticated">
+      <a (click)="logout()" style="cursor: pointer;">Déconnexion</a>
+    </li>
   </ul>
 </nav>
