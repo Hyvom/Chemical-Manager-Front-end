@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; // ✅ ADD THIS
 import { RequestService } from '../../core/request.service';
 import { Request } from '../../models/request.model';
 
@@ -14,9 +15,13 @@ export class RequestListComponent implements OnInit {
   requests: Request[] = [];
   loading: boolean = true;
   error: string | null = null;
-  processingIds: number[] = []; // Track which requests are being processed
+  processingIds: number[] = [];
 
-  constructor(private requestService: RequestService) {}
+  // ✅ INJECT ROUTER
+  constructor(
+    private requestService: RequestService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadRequests();
@@ -39,6 +44,11 @@ export class RequestListComponent implements OnInit {
     });
   }
 
+  // ✅ NAVIGATE TO CREATE REQUEST PAGE
+  createRequest(): void {
+    this.router.navigate(['/requests/add']);
+  }
+
   // ✅ APPROVE REQUEST
   approveRequest(requestId: number): void {
     if (!requestId) {
@@ -51,15 +61,12 @@ export class RequestListComponent implements OnInit {
 
       this.requestService.approveRequest(requestId).subscribe({
         next: (updatedRequest) => {
-          // Update the request in the list
           const index = this.requests.findIndex(r => r.id === requestId);
           if (index !== -1) {
             this.requests[index] = updatedRequest;
           }
 
-          // Remove from processing
           this.processingIds = this.processingIds.filter(id => id !== requestId);
-
           alert('Request approved successfully!');
         },
         error: (err) => {
@@ -83,15 +90,12 @@ export class RequestListComponent implements OnInit {
 
       this.requestService.rejectRequest(requestId).subscribe({
         next: (updatedRequest) => {
-          // Update the request in the list
           const index = this.requests.findIndex(r => r.id === requestId);
           if (index !== -1) {
             this.requests[index] = updatedRequest;
           }
 
-          // Remove from processing
           this.processingIds = this.processingIds.filter(id => id !== requestId);
-
           alert('Request rejected successfully!');
         },
         error: (err) => {
