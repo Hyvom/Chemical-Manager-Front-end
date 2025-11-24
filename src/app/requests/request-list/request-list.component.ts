@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router'; // ✅ ADD THIS
+import { Router } from '@angular/router';
 import { RequestService } from '../../core/request.service';
 import { Request } from '../../models/request.model';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-request-list',
@@ -16,15 +17,17 @@ export class RequestListComponent implements OnInit {
   loading: boolean = true;
   error: string | null = null;
   processingIds: number[] = [];
+  isAdmin: boolean = false; // 🚩 Admin flag
 
-  // ✅ INJECT ROUTER
   constructor(
     private requestService: RequestService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.loadRequests();
+    this.isAdmin = this.authService.isAdmin(); // 🚩 Use AuthService method!
   }
 
   loadRequests(): void {
@@ -44,12 +47,10 @@ export class RequestListComponent implements OnInit {
     });
   }
 
-  // ✅ NAVIGATE TO CREATE REQUEST PAGE
   createRequest(): void {
     this.router.navigate(['/requests/add']);
   }
 
-  // ✅ APPROVE REQUEST
   approveRequest(requestId: number): void {
     if (!requestId) {
       console.error('Request ID is undefined');
@@ -65,7 +66,6 @@ export class RequestListComponent implements OnInit {
           if (index !== -1) {
             this.requests[index] = updatedRequest;
           }
-
           this.processingIds = this.processingIds.filter(id => id !== requestId);
           alert('Request approved successfully!');
         },
@@ -78,7 +78,6 @@ export class RequestListComponent implements OnInit {
     }
   }
 
-  // ✅ REJECT REQUEST
   rejectRequest(requestId: number): void {
     if (!requestId) {
       console.error('Request ID is undefined');
@@ -94,7 +93,6 @@ export class RequestListComponent implements OnInit {
           if (index !== -1) {
             this.requests[index] = updatedRequest;
           }
-
           this.processingIds = this.processingIds.filter(id => id !== requestId);
           alert('Request rejected successfully!');
         },

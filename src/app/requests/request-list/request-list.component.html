@@ -37,8 +37,9 @@
           </span>
         </td>
         <td>
-          <!--  APPROVE/REJECT BUTTONS - Only show for PENDING requests -->
-          <div class="action-buttons" *ngIf="req.statut === 'PENDING' || !req.statut">
+          <!-- Only admins can approve/reject -->
+          <div class="action-buttons"
+              *ngIf="isAdmin && (req.statut === 'PENDING' || !req.statut)">
             <button
               class="btn-approve"
               (click)="approveRequest(req.id!)"
@@ -52,7 +53,7 @@
               ✗ Reject
             </button>
           </div>
-          <!-- Show status for non-pending requests -->
+          <!-- Status info for all -->
           <span *ngIf="req.statut && req.statut !== 'PENDING'" class="status-text">
             {{ req.statut === 'APPROVED' ? 'Approved ✓' : 'Rejected ✗' }}
           </span>
